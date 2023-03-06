@@ -1,0 +1,97 @@
+body {
+    background-color: #f0f0f2;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+div {
+    width: 600px;
+    margin: 5em auto;
+    padding: 2em;
+    background-color: #fdfdff;
+    border-radius: 0.5em;
+    box-shadow: 2px 3px 7px 2px rgba(0, 0, 0, 0.02);
+}
+
+a:link,
+a:visited {
+    color: #38488f;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+    div {
+        margin: 0 auto;
+        width: auto;
+    }
+}
+
+.container {
+    text-align: center;
+}
+
+a.button {
+    display: inline-block;
+    background-color: #697194;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    text-decoration: none;
+    /* to remove underline on link */
+}
+
+a.button:hover {
+    background-color: #fff;
+    color: #38488f;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+a.button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+a.button:hover::before {
+    left: 100%;
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 9999;
+  }
+  
+  #loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
