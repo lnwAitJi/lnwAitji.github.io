@@ -38,7 +38,7 @@ function generateCommand() {
     let playerName = document.getElementById("playerName").value;
     let command = "give " + playerName + " " + itemType + " 1 0 ";
     if (canPlaceOn.length > 0) {
-        command += `{"minecraft:can_place_on":{blocks":[`;
+        command += `{"minecraft:can_place_on":{"blocks":[`;
         for (let i = 0; i < canPlaceOn.length; i++) {
             command += `"${canPlaceOn[i]}",`;
         }
