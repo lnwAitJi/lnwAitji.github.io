@@ -1,36 +1,38 @@
 let canPlaceOn = [];
 let canDestroy = [];
 
-function addCanPlace() {
-    let blockType = document.getElementById("canPlace").value;
+function addBlock(container, blockArray) {
+    let blockType = container.querySelector("input").value;
     if (blockType !== "") {
-        canPlaceOn.push(blockType);
-        document.getElementById("canPlaceContainer").insertAdjacentHTML("beforeend", "<input type='text' value='" + blockType + "' disabled><button type='button' onclick='removeCanPlace(this)'>-</button><br>");
-        document.getElementById("canPlace").value = "";
+        blockArray.push(blockType);
+        let input = document.createElement("input");
+        input.type = "text";
+        input.value = blockType;
+        input.disabled = true;
+        let button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "-";
+        button.addEventListener("click", () => removeBlock(container, blockArray, input, button));
+        container.appendChild(input);
+        container.appendChild(button);
+        container.appendChild(document.createElement("br"));
+        container.querySelector("input").value = "";
     }
+}
+
+function addCanPlace() {
+    addBlock(document.getElementById("canPlaceContainer"), canPlaceOn);
 }
 
 function addCanDestroy() {
-    let blockType = document.getElementById("canDestroy").value;
-    if (blockType !== "") {
-        canDestroy.push(blockType);
-        document.getElementById("canDestroyContainer").insertAdjacentHTML("beforeend", "<input type='text' value='" + blockType + "' disabled><button type='button' onclick='removeCanDestroy(this)'>-</button><br>");
-        document.getElementById("canDestroy").value = "";
-    }
+    addBlock(document.getElementById("canDestroyContainer"), canDestroy);
 }
 
-function removeCanPlace(button) {
-    let index = Array.prototype.indexOf.call(button.parentNode.children, button) - 1;
-    canPlaceOn.splice(index, 1);
-    button.parentNode.removeChild(button.previousSibling);
-    button.parentNode.removeChild(button);
-}
-
-function removeCanDestroy(button) {
-    let index = Array.prototype.indexOf.call(button.parentNode.children, button) - 1;
-    canDestroy.splice(index, 1);
-    button.parentNode.removeChild(button.previousSibling);
-    button.parentNode.removeChild(button);
+function removeBlock(container, blockArray, input, button) {
+    let index = Array.prototype.indexOf.call(container.children, input) - 1;
+    blockArray.splice(index, 1);
+    container.removeChild(input);
+    container.removeChild(button);
 }
 
 function generateCommand() {
@@ -55,3 +57,17 @@ function generateCommand() {
     }
     document.getElementById("commandOutput").value = command;
 }
+
+document.getElementById("canPlace").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addCanPlace();
+        event.preventDefault();
+    }
+});
+
+document.getElementById("canDestroy").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addCanDestroy();
+        event.preventDefault();
+    }
+});
