@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: #E6E6FA;
+    background-color: #f0f0f2;
 
     /* Text Settings */
     font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@ form {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
     /* Blue Cute Tone */
-    background-color: #F2F6FC;
+    background-color: #fdfdff;
     border-radius: 10px;
     padding-top: 30px;
     position: relative;
@@ -76,7 +76,8 @@ select {
 
 /* Style the buttons */
 button {
-    background-color: #0072C6;
+    background-color: #38488f;
+    text-decoration: none;
     color: #fff;
     border: none;
     border-radius: 5px;
