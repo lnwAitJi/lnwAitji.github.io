@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const buttons = [
         { id: "japanproject", url: "https://github.com/pooooooon/JavaPlayer" },
         { id: "bluemyth", url: "https://github.com/BlueMyth-Network" },
-        { id: "cmgmmo", url: "../Minecraft/index.html" },
+        { id: "cmgmmo", url: "../Minecraft/" },
         { id: "cmgmmodis", url: "https://discord.com/invite/JjchmEtqXp" },
-        { id: "project", url: "./ProJect/index.html" },
-        { id: "connect", url: "./CMGMMO/index.html" },
+        { id: "project", url: "./ProJect/" },
+        { id: "connect", url: "./CMGMMO/" },
         { id: "back", url: "https://lnwAitJi.github.io" }
     ];
 
