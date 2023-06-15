@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "cmgmmo", url: "../minecraft/" },
         { id: "cmgmmodis", url: "https://discord.com/invite/JjchmEtqXp" },
         { id: "project", url: "./ProJect/" },
-        { id: "connect", url: "./CMGMMO/" },
+        { id: "connect", url: "../Minecraft/CMGMMO/" },
         { id: "back", url: "https://lnwAitJi.github.io" }
     ];
 
