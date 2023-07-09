@@ -7,8 +7,8 @@ function addCanPlace() {
         canPlaceOn.push(blockType);
         document.getElementById("canPlaceContainer").insertAdjacentHTML("beforeend", "<input type='text' value='" + blockType + "' disabled><button type='button' onclick='removeCanPlace(this)'>-</button><br>");
         document.getElementById("canPlace").value = "";
+        generateCommand();
     }
-    generateCommand();
 }
 
 function addCanDestroy() {
@@ -17,8 +17,8 @@ function addCanDestroy() {
         canDestroy.push(blockType);
         document.getElementById("canDestroyContainer").insertAdjacentHTML("beforeend", "<input type='text' value='" + blockType + "' disabled><button type='button' onclick='removeCanDestroy(this)'>-</button><br>");
         document.getElementById("canDestroy").value = "";
+        generateCommand();
     }
-    generateCommand();
 }
 
 function removeCanPlace(button) {
@@ -66,3 +66,9 @@ function generateCommand() {
 
     document.getElementById("commandOutput").value = commandOutput;
 }
+
+document.getElementById("itemType").addEventListener("input", generateCommand);
+document.getElementById("playerName").addEventListener("input", generateCommand);
+
+document.getElementById("addCanPlaceButton").addEventListener("click", addCanPlace);
+document.getElementById("addCanDestroyButton").addEventListener("click", addCanDestroy);
