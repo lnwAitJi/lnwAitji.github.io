@@ -1,4 +1,8 @@
-# **__AitJi's Website!__**
-- You can looking my website by [Click Here](https://lnwaitji.github.io/)
-- What should i do next?
-- (This is my first website)
+## InwAitJi's Website
+This is usually made me shortcut for me to doing something ex:
+
+__Minecraft Bedrock [Give Command Generator](https://lnwaitji.github.io/givegen/)__
+__[Rick Roll Friened](https://lnwaitji.github.io/database/)__
+
+## Main Website
+This is my main website btw [click me.](https://lnwaitji.github.io)
