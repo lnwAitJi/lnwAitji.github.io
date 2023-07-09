@@ -41,21 +41,28 @@ function generateCommand() {
     let itemType = document.getElementById("itemType").value;
     let playerName = document.getElementById("playerName").value;
     let command = "give " + playerName + " " + itemType + " 1 0 ";
+    let canPlace = "";
+    let canDestroy = "";
     if (canPlaceOn.length > 0) {
-        command += `{"minecraft:can_place_on":{blocks":[`;
+        canPlace = '"minecraft:can_place_on":{"blocks":[';
         for (let i = 0; i < canPlaceOn.length; i++) {
-            command += `"${canPlaceOn[i]}",`;
+            canPlace += '"' + canPlaceOn[i] + '",';
         }
-        command = command.substring(0, command.length - 1);
-        command += "]}}";
+        canPlace = canPlace.slice(0, -1) + ']},';
     }
+
     if (canDestroy.length > 0) {
-        command += `{"minecraft:can_destroy":{"blocks":[`;
+        canDestroy = '"minecraft:can_destroy":{"blocks":[';
         for (let i = 0; i < canDestroy.length; i++) {
-            command += `"${canDestroy[i]}",`;
+            canDestroy += '"' + canDestroy[i] + '",';
         }
-        command = command.substring(0, command.length - 1);
-        command += "]}}";
+        canDestroy = canDestroy.slice(0, -1) + ']},';
     }
-    document.getElementById("commandOutput").value = command;
+
+    let commandOutput = command;
+    if (canPlace !== "" || canDestroy !== "") {
+        commandOutput += '{' + canPlace + canDestroy.slice(0, -1) + '}';
+    }
+
+    document.getElementById("commandOutput").value = commandOutput;
 }
