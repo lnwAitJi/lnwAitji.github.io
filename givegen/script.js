@@ -17,6 +17,7 @@ function addBlock(container, blockArray) {
         container.appendChild(button);
         container.appendChild(document.createElement("br"));
         container.querySelector("input").value = "";
+        generateCommand();
     }
 }
 
@@ -33,6 +34,7 @@ function removeBlock(container, blockArray, input, button) {
     blockArray.splice(index, 1);
     container.removeChild(input);
     container.removeChild(button);
+    generateCommand();
 }
 
 function generateCommand() {
@@ -71,3 +73,6 @@ document.getElementById("canDestroy").addEventListener("keydown", (event) => {
         event.preventDefault();
     }
 });
+
+document.getElementById("itemType").addEventListener("input", generateCommand);
+document.getElementById("playerName").addEventListener("input", generateCommand);
