@@ -74,8 +74,5 @@ document.getElementById("canDestroy").addEventListener("keydown", (event) => {
     }
 });
 
-document.querySelector("#canPlaceContainer button").addEventListener("click", addCanPlace);
-document.querySelector("#canDestroyContainer button").addEventListener("click", addCanDestroy);
-
 document.getElementById("itemType").addEventListener("input", generateCommand);
 document.getElementById("playerName").addEventListener("input", generateCommand);
