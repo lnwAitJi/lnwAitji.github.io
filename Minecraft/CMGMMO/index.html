@@ -32,8 +32,15 @@
                     <p>Once you've followed these steps, you should be able to connect to the CMGMMO Server in Minecraft. Enjoy!</p>
                 `;
             } else {
+                function openMinecraft() {
+                   window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
+                };
+
+                document.addEventListener('DOMContentLoaded', function () {
+                   openMinecraft();
+                });
                 document.getElementById('instructions').innerHTML = `
-                    <p>If you're not on an iOS device, please open Minecraft and follow the usual steps to add the server manually. Here are the details you'll need:</p>
+                    <p>If you're not on an iOS device, And can't goto Server, try to click a ✅ button but still not work, Here are the details you'll need:</p>
                     <ul>
                         <li>Server Name: CMGMMO Server</li>
                         <li>Server Address: mcsv.fun</li>
