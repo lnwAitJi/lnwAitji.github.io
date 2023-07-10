@@ -9,7 +9,38 @@
     <link rel="icon" href="../../profile.png">
     <script>
         function openMinecraft() {
-            window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
+            var userAgent = navigator.userAgent.toLowerCase();
+            var isIOS = /iphone|ipad|ipod/.test(userAgent);
+            
+            if (isIOS) {
+                document.getElementById('instructions').innerHTML = `
+                    <ol>
+                        <li>Open the Minecraft app on your iOS device.</li>
+                        <li>Go to the "Play" section in the main menu.</li>
+                        <li>Select "Servers" from the options.</li>
+                        <li>Tap the "+" button to add a new server.</li>
+                        <li>Enter the following server details:
+                            <ul>
+                                <li>Server Name: CMGMMO Server</li>
+                                <li>Server Address: mcsv.fun</li>
+                                <li>Port: 15913</li>
+                            </ul>
+                        </li>
+                        <li>Tap "Add Server" to save the server.</li>
+                        <li>Return to the server list and select the CMGMMO Server to connect.</li>
+                    </ol>
+                    <p>Once you've followed these steps, you should be able to connect to the CMGMMO Server in Minecraft. Enjoy!</p>
+                `;
+            } else {
+                document.getElementById('instructions').innerHTML = `
+                    <p>If you're not on an iOS device, please open Minecraft and follow the usual steps to add the server manually. Here are the details you'll need:</p>
+                    <ul>
+                        <li>Server Name: CMGMMO Server</li>
+                        <li>Server Address: mcsv.fun</li>
+                        <li>Port: 15913</li>
+                    </ul>
+                `;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -24,12 +55,9 @@
         <div class="container">
             <img src="../../profile.png" alt="Profile Picture" class="profile-pic">
             <h2>Hi there! 🐾 I'm AitJi</h2>
-            <p>I want to connect to your Minecraft can you press that "Allow" Button ✅</p>
-            <div id="overlay"></div>
+            <p>I want to connect to your Minecraft server. Here are the instructions to add it:</p>
+            <div id="instructions"></div>
         </div>
     </main>
-
-    <body>
-    </body>
-
+</body>
 </html>
