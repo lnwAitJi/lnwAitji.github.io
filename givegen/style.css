@@ -5,7 +5,6 @@
 body {
     background-color: #f0f0f2;
 
-    /* Text Settings */
     font-family: Arial, sans-serif;
     color: #333;
 
@@ -23,19 +22,16 @@ form {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
-    /* Blue Cute Tone */
     background-color: #fdfdff;
     border-radius: 10px;
     padding-top: 30px;
     position: relative;
 }
 
-/* Add animation to the button */
 #generate-button {
     animation: pulse 1s infinite;
 }
 
-/* Define the animation */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -50,7 +46,6 @@ form {
     }
 }
 
-/* Style the input fields */
 label {
     font-weight: bold;
     display: block;
@@ -65,7 +60,6 @@ input[type=text] {
     margin-bottom: 20px;
 }
 
-/* Style the dropdown */
 select {
     padding: 8px;
     border-radius: 5px;
@@ -74,7 +68,6 @@ select {
     margin-bottom: 20px;
 }
 
-/* Style the buttons */
 button {
     background-color: #38488f;
     text-decoration: none;
@@ -88,4 +81,10 @@ button {
 
 button:hover {
     color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
 }
