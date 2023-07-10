@@ -40,7 +40,10 @@ function removeCanDestroy(button) {
 function generateCommand() {
     let itemType = document.getElementById("itemType").value;
     let playerName = document.getElementById("playerName").value;
-    let command = "give " + playerName + " " + itemType + " 1 0 ";
+    let id = document.getElementById("id").value;
+    let count = document.getElementById("count").value;
+    
+    let command = "give " + playerName + " " + itemType + " " + count + " " + id + " ";
     let canPlace = false
     let canDes = false
     let canPlaceItem = ""
