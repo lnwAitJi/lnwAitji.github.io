@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connection CMGMMO</title>
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../profile.png">
+    <style>
+        .server-details {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .server-details h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .server-details ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .server-details li {
+            margin-bottom: 5px;
+        }
+    </style>
     <script>
         function openMinecraft() {
             var userAgent = navigator.userAgent.toLowerCase();
             var isIOS = /iphone|ipad|ipod/.test(userAgent);
-            
+
             if (isIOS) {
                 document.getElementById('instructions').innerHTML = `
                     <ol>
@@ -19,51 +42,47 @@
                         <li>Go to the "Play" section in the main menu.</li>
                         <li>Select "Servers" from the options.</li>
                         <li>Tap the "+" button to add a new server.</li>
-                        <li>Enter the following server details:
-                            <ul>
-                                <li>Server Name: CMGMMO Server</li>
-                                <li>Server Address: mcsv.fun</li>
-                                <li>Port: 15913</li>
-                            </ul>
-                        </li>
-                        <li>Tap "Add Server" to save the server.</li>
-                        <li>Return to the server list and select the CMGMMO Server to connect.</li>
+                        <li>Enter the following server details:</li>
                     </ol>
+                    <div class="server-details">
+                        <h3>Server Details:</h3>
+                        <ul>
+                            <li><strong>Server Name:</strong> CMGMMO Server</li>
+                            <li><strong>Server Address:</strong> mcsv.fun</li>
+                            <li><strong>Port:</strong> 15913</li>
+                        </ul>
+                    </div>
+                    <p>Tap "Add Server" to save the server.<br>
+                    Return to the server list and select the CMGMMO Server to connect.</p>
                     <p>Once you've followed these steps, you should be able to connect to the CMGMMO Server in Minecraft. Enjoy!</p>
                 `;
             } else {
-                function openMinecraft() {
-                   window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
-                };
-
-                document.addEventListener('DOMContentLoaded', function () {
-                   openMinecraft();
-                });
+                window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
                 document.getElementById('instructions').innerHTML = `
-                    <p>If you're not on an iOS device, And can't goto Server, try to click a ✅ button but still not work, Here are the details you'll need:</p>
-                    <ul>
-                        <li>Server Name: CMGMMO Server</li>
-                        <li>Server Address: mcsv.fun</li>
-                        <li>Port: 15913</li>
-                    </ul>
+                    <p>If you're not on an iOS device and can't go to the server, try clicking the ✅ button.</p>
+                    <div class="server-details">
+                        <h3>Server Details:</h3>
+                        <ul>
+                            <li><strong>Server Name:</strong> CMGMMO Server</li>
+                            <li><strong>Server Address:</strong> mcsv.fun</li>
+                            <li><strong>Port:</strong> 15913</li>
+                        </ul>
+                    </div>
+                    <p>If it still doesn't work, here are the details you'll need:</p>
                 `;
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            openMinecraft();
-        });
     </script>
 </head>
-
 <body>
-
     <main>
         <div class="container">
             <img src="../../profile.png" alt="Profile Picture" class="profile-pic">
             <h2>Hi there! 🐾 I'm AitJi</h2>
             <p>I want to connect to your Minecraft server. Here are the instructions to add it:</p>
             <div id="instructions"></div>
+            <img src="./ip.png" alt="Server IP" class="server-ip">
+            <button onclick="openMinecraft()">✅</button>
         </div>
     </main>
 </body>
