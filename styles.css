@@ -63,6 +63,18 @@ footer {
     transition: transform 0.5s ease;
 }
 
+.profile-img:hover {
+    transform: scale(1.2);
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
 .profile-pic:hover {
     transform: scale(1.2);
 }
