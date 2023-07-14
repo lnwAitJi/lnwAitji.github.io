@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../profile.png">
     <style>
-        /* CSS styles */
         .server-details {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -89,6 +88,7 @@
                 window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
                 instructions.innerHTML = `
                     <p>If you're not on an iOS device and can't go to the server, try clicking the ✅ button.</p>
+                    <p>If it still doesn't work, here are the details you'll need:</p>
                     <div class="server-details">
                         <h3>Server Details:</h3>
                         <ul>
@@ -97,11 +97,9 @@
                             <li><strong>Port:</strong> 15913</li>
                         </ul>
                     </div>
-                    <p>If it still doesn't work, here are the details you'll need:</p>
                 `;
             }
 
-            // Add cool effects to the instructions and button
             instructions.classList.add('fade-in');
             button.classList.add('rotate');
         }
@@ -112,9 +110,10 @@
         <div class="container">
             <img src="../../profile.png" alt="Profile Picture" class="profile-pic">
             <h2>Hi there! 🐾 I'm AitJi</h2>
-            <p>I want to connect to your Minecraft server. Here are the instructions to add it:</p>
+            <p>I want to connect to your Minecraft server. Can you press "✅" Button belown there?:</p>
             <div id="instructions"></div>
             <button id="connect-button" onclick="openMinecraft()">✅</button>
+            <br>
             <img src="./ip.png" alt="Server IP" class="profile-image">
         </div>
     </main>
