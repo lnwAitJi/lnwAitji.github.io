@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="../../profile.png">
     <style>
+        /* CSS styles */
         .server-details {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -29,14 +30,42 @@
         .server-details li {
             margin-bottom: 5px;
         }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin-top: 20px;
+            }
+        }
     </style>
     <script>
         function openMinecraft() {
             var userAgent = navigator.userAgent.toLowerCase();
             var isIOS = /iphone|ipad|ipod/.test(userAgent);
 
+            var instructions = document.getElementById('instructions');
+            var button = document.getElementById('connect-button');
+
             if (isIOS) {
-                document.getElementById('instructions').innerHTML = `
+                instructions.innerHTML = `
                     <ol>
                         <li>Open the Minecraft app on your iOS device.</li>
                         <li>Go to the "Play" section in the main menu.</li>
@@ -58,7 +87,7 @@
                 `;
             } else {
                 window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|mcsv.fun:15913';
-                document.getElementById('instructions').innerHTML = `
+                instructions.innerHTML = `
                     <p>If you're not on an iOS device and can't go to the server, try clicking the ✅ button.</p>
                     <div class="server-details">
                         <h3>Server Details:</h3>
@@ -71,17 +100,21 @@
                     <p>If it still doesn't work, here are the details you'll need:</p>
                 `;
             }
+
+            // Add cool effects to the instructions and button
+            instructions.classList.add('fade-in');
+            button.classList.add('rotate');
         }
     </script>
 </head>
 <body>
     <main>
         <div class="container">
-            <img src="../profile.png" alt="Profile Picture" class="profile-pic">
+            <img src="../../profile.png" alt="Profile Picture" class="profile-pic">
             <h2>Hi there! 🐾 I'm AitJi</h2>
             <p>I want to connect to your Minecraft server. Here are the instructions to add it:</p>
             <div id="instructions"></div>
-            <button onclick="openMinecraft()">✅</button>
+            <button id="connect-button" onclick="openMinecraft()">✅</button>
             <img src="./ip.png" alt="Server IP" class="profile-image">
         </div>
     </main>
