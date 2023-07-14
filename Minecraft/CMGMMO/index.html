@@ -54,6 +54,34 @@
                 margin-top: 20px;
             }
         }
+        
+        .fade-in {
+            animation: fade-in 1s ease-in-out;
+        }
+        
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .rotate {
+            animation: rotate 1s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
     <script>
         function openMinecraft() {
@@ -110,8 +138,9 @@
         <div class="container">
             <img src="../../profile.png" alt="Profile Picture" class="profile-pic">
             <h2>Hi there! 🐾 I'm AitJi</h2>
-            <p>I want to connect to your Minecraft server. Can you press "✅" Button belown there?:</p>
+            <p>I want to connect to your Minecraft server. Can you press the "✅" button below?</p>
             <div id="instructions"></div>
+            <br>
             <button id="connect-button" onclick="openMinecraft()">✅</button>
             <br>
             <img src="./ip.png" alt="Server IP" class="profile-image">
