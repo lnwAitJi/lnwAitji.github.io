@@ -15,8 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (element) {
             element.addEventListener("click", () => {
                 if(button.url.endsWith("?ontab=true")){
-                    window.location.href = button.url;
-                    return
+                  const herfTo = button.url.split("?onTab=true")[0] ?? button.url
+                  window.location.href = button.url;
+                  return
                 }
                 if (button.url.startsWith("http")) window.open(button.url, "_blank");
                 else window.location.href = button.url;
