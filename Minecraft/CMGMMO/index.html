@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,38 @@
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="./cmg.png">
     <style>
+        h3 {
+            color: #e8e8e8;
+        }
         .server-details {
-            border: 1px solid #ccc;
+            color: #e8e8e8;
+            border: 1px solid #2d2d2d;
             border-radius: 5px;
             padding: 10px;
             margin-top: 20px;
-            background-color: #f9f9f9;
+            background-color: #2d2d2d;
         }
 
         .server-details h3 {
+            color: #e8e8e8;
             margin-top: 0;
             color: #333;
         }
 
         .server-details ul {
+            color: #e8e8e8;
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
 
         .server-details li {
+            color: #e8e8e8;
             margin-bottom: 5px;
         }
 
         .container {
+            color: #e8e8e8;
             text-align: center;
             margin-top: 50px;
         }
@@ -54,30 +63,32 @@
                 margin-top: 20px;
             }
         }
-        
+
         .fade-in {
             animation: fade-in 1s ease-in-out;
         }
-        
+
         @keyframes fade-in {
             0% {
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .rotate {
             animation: rotate 1s linear infinite;
         }
-        
+
         @keyframes rotate {
             0% {
                 transform: rotate(0);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -93,58 +104,48 @@
 
             if (isIOS) {
                 instructions.innerHTML = `
-                    <ol>
-                        <li>Open the Minecraft app on your iOS device.</li>
-                        <li>Go to the "Play" section in the main menu.</li>
-                        <li>Select "Servers" from the options.</li>
-                        <li>Tap the "+" button to add a new server.</li>
-                        <li>Enter the following server details:</li>
-                    </ol>
-                    <div class="server-details">
-                        <h3>Server Details:</h3>
-                        <ul>
-                            <li><strong>Server Name:</strong> CMGMMO Server</li>
-                            <li><strong>Server Address:</strong> cmgmmo.mc.in.th</li>
-                            <li><strong>Port:</strong> 21356</li>
-                        </ul>
-                    </div>
-                    <p>Tap "Add Server" to save the server.<br>
-                    Return to the server list and select the CMGMMO Server to connect.</p>
-                    <p>Once you've followed these steps, you should be able to connect to the CMGMMO Server in Minecraft. Enjoy!</p>
+                <p>Sorry, now you are using ios so i can't add server automatically
+                    'please add server by yourself'</p>
                 `;
             } else {
-                window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO%20§iServer|cmgmmo.mc.in.th:21356';
+                window.location.href = 'minecraft://?addExternalServer=§l§eCMGMMO|cmgmmo.mc.in.th:21356';
                 instructions.innerHTML = `
-                    <p>If you're not on an iOS device and can't go to the server, try clicking the ✅ button.</p>
-                    <p>If it still doesn't work, here are the details you'll need:</p>
-                    <div class="server-details">
-                        <h3>Server Details:</h3>
-                        <ul>
-                            <li><strong>Server Name:</strong> CMGMMO Server</li>
-                            <li><strong>Server Address:</strong> cmgmmo.mc.in.th</li>
-                            <li><strong>Port:</strong> 21356</li>
-                        </ul>
-                    </div>
+                    <p>Look Like you didn't teleport to Minecraft?</p>
+                    <p>'please add server by yourself'</p>
                 `;
             }
-
             instructions.classList.add('fade-in');
             button.classList.add('rotate');
         }
+        instructions.classList.add('fade-in');
     </script>
 </head>
+
 <body>
     <main>
         <div class="container">
             <img src="./cmg.png" alt="Profile Picture" class="profile-pic">
-            <h2>Hi there!</h2>
-            <p>I want to connect to your Minecraft server. Can you press the "✅" button below?</p>
+            <h2>@CMGMMO!</h2>
+            <p>This is Page to add a Minecraft Bedrock Server "CMGMMO"</p>
+            <h1>Now Online: <span id="playerCount">0</span>/30</h1>
+            <div class="server-details">
+                <ul>
+                    <li><strong>Server Name:</strong> CMGMMO Server</li>
+                    <li><strong>Server Address:</strong> cmgmmo.mc.in.th</li>
+                    <li><strong>Port:</strong> 21356</li>
+                </ul>
+            </div>
             <div id="instructions"></div>
             <br>
             <button id="connect-button" onclick="openMinecraft()">✅</button>
             <br>
             <img src="./ip.png" alt="Server IP" class="profile-image">
+            <script src="script.js"></script>
         </div>
     </main>
+    <footer>
+        <p>&copy; CMGMMO. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>
