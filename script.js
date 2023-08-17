@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "project", url: "./ProJect/" },
         { id: "connect", url: "https://lnwaitji.github.io/Minecraft/CMGMMO?ontab=true" },
         { id: "back", url: "https://lnwAitJi.github.io?ontab=true" },
-        { id: "r", url: "https://lnwAitJi.github.io/database?ontab=true" }
+        { id: "r", url: "https://lnwAitJi.github.io/database?ontab=true" },
+        { id: "server", url: "./Server/" }
     ];
 
     buttons.forEach(button => {
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
             element.addEventListener("click", () => {
                 if(button.url.endsWith("?ontab=true")){
                   const herfTo = button.url.split("?onTab=true")[0] ?? button.url
-                  window.location.href = button.url;
+                  window.location.href = herfTo;
                   return
                 }
                 if (button.url.startsWith("http")) window.open(button.url, "_blank");
