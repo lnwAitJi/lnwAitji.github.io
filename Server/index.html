@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server Info</title>
+    <link rel="icon" href="../profile.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .h1 {
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .server-details {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow-wrap: break-word;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        .server-details p {
+            margin: 0;
+        }
+
+        .container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .container button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width:768px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .server-details {
+                padding: 10px;
+                margin-top: 10px;
+            }
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            animation: spin 2s linear infinite;
+        }
+
+        .loading i {
+            font-size: 24px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .profile-heading {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+            margin-right: 10px;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-heading">
+            <img src="../profile.png" alt="Profile Picture" class="profile-pic">
+            <h1>Minecraft Server Details</h1>
+        </div>
+        <div class="content">
+            <input type="text" id="serverIp" placeholder="Enter Server IP">
+            <input type="text" id="serverPort" placeholder="Enter Server Port (default: 19132)">
+            <button id="fetchButton">Fetch Details</button>
+            <div class="server-details" id="serverDetails">
+                <div class="loading" id="loadingIcon"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fetchButton = document.getElementById("fetchButton");
+        const serverDetailsElement = document.getElementById("serverDetails");
+        const loadingIcon = document.getElementById("loadingIcon");
+
+        fetchButton.addEventListener("click", () => {
+            const serverIp = document.getElementById("serverIp").value || "103.82.249.81";
+            const serverPort = document.getElementById("serverPort").value || 19132;
+            const apiUrl = `https://api.mcsrvstat.us/bedrock/3/${serverIp}:${serverPort}`;
+
+            loadingIcon.style.display = "inline-block";
+            serverDetailsElement.innerHTML = "";
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    loadingIcon.style.display = "none";
+                    for (const key in data) {
+                        if (typeof data[key] === "object") {
+                            const subDetails = Object.entries(data[key]).map(([subKey, subValue]) => `
+                                <p><strong>${subKey.charAt(0).toUpperCase() + subKey.slice(1)}:</strong> ${JSON.stringify(subValue)}</p>
+                            `).join("");
+                            serverDetailsElement.innerHTML += `
+                                <div class="sub-details">
+                                    <h2>${key.charAt(0).toUpperCase() + key.slice(1)}</h2>
+                                    ${subDetails}
+                                </div>
+                            `;
+                        } else {
+                            serverDetailsElement.innerHTML += `
+                                <p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${JSON.stringify(data[key])}</p>
+                            `;
+                        }
+                    }
+                })
+                .catch(error => {
+                    loadingIcon.style.display = "none";
+                    serverDetailsElement.innerHTML = `<p>An error occurred while fetching server details: ${error}</p>`;
+                });
+        });
+    </script>
+    <footer>
+        <p>&copy; lnwAitJi. All rights reserved.</p>
+        <p>API Usage: "api.mcsrvstat.us"</p>
+    </footer>
+</body>
+
+</html>
