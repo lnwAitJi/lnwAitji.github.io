@@ -162,7 +162,7 @@
         const loadingIcon = document.getElementById("loadingIcon");
 
         fetchButton.addEventListener("click", () => {
-            const serverIp = document.getElementById("serverIp").value || "103.82.249.81";
+            const serverIp = document.getElementById("serverIp").value || "127.0.0.1";
             const serverPort = document.getElementById("serverPort").value || 19132;
             const apiUrl = `https://api.mcsrvstat.us/bedrock/3/${serverIp}:${serverPort}`;
 
