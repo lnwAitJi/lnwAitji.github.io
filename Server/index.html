@@ -8,6 +8,11 @@
     <link rel="icon" href="../profile.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        a {
+            font-family: Arial, sans-serif;
+            color: #007bff;
+        }
+
         body {
             background-color: #222;
             color: #fff;
@@ -174,6 +179,12 @@
                             `;
                         }
                     }
+                    serverDetailsElement.innerHTML += `
+                                <div class="sub-details">
+                                    <h2>Raw Data:</h2>
+                                    <strong>Link: </strong> <a href="${apiUrl}">${apiUrl}</a>
+                                </div>
+                    `;
                 })
                 .catch(error => {
                     serverDetailsElement.innerHTML = `<p>An error occurred while fetching server details: ${error}</p>`;
