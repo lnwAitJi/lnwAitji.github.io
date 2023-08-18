@@ -162,41 +162,54 @@
         const serverDetailsElement = document.getElementById("serverDetails");
         const loadingIcon = document.getElementById("loadingIcon");
 
-        fetchButton.addEventListener("click", () => {
-            const serverIp = document.getElementById("serverIp").value || "127.0.0.1";
-            const serverPort = document.getElementById("serverPort").value || 19132;
-            const apiUrl = `https://api.mcsrvstat.us/bedrock/3/${serverIp}:${serverPort}`;
+        
+fetchButton.addEventListener("click", () => { 
+    const serverIp = document.getElementById("serverIp").value || "127.0.0.1"; 
+    const serverPort = document.getElementById("serverPort").value || 19132; 
+    const apiUrl = `https://api.mcsrvstat.us/bedrock/3/${serverIp}:${serverPort}`; 
 
-            loadingIcon.style.display = "inline-block";
-            serverDetailsElement.innerHTML = "";
+    loadingIcon.style.display = "inline-block"; 
+    serverDetailsElement.innerHTML = ""; 
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    loadingIcon.style.display = "none";
-                    for (const key in data) {
-                        if (typeof data[key] === "object") {
-                            const subDetails = Object.entries(data[key]).map(([subKey, subValue]) => `
-                                <p><strong>${subKey.charAt(0).toUpperCase() + subKey.slice(1)}:</strong> ${JSON.stringify(subValue)}</p>
-                            `).join("");
-                            serverDetailsElement.innerHTML += `
-                                <div class="sub-details">
-                                    <h2>${key.charAt(0).toUpperCase() + key.slice(1)}</h2>
-                                    ${subDetails}
-                                </div>
-                            `;
-                        } else {
-                            serverDetailsElement.innerHTML += `
-                                <p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${JSON.stringify(data[key])}</p>
-                            `;
-                        }
-                    }
-                })
-                .catch(error => {
-                    loadingIcon.style.display = "none";
-                    serverDetailsElement.innerHTML = `<p>An error occurred while fetching server details: ${error}</p>`;
-                });
-        });
+    fetch(apiUrl) 
+        .then(response => response.json()) 
+        .then(data => { 
+            loadingIcon.style.display = "none"; 
+            
+            if (data.players && data.players.list) {
+                const playerNames = data.players.list.map(player => `<li>${player.name}</li>`).join("");
+                serverDetailsElement.innerHTML += `
+                    <div class="sub-details">
+                        <h2>Players Online:</h2>
+                        <ul>${playerNames}</ul>
+                    </div>
+                `;
+            }
+            
+            for (const key in data) { 
+                if (typeof data[key] === "object") { 
+                    const subDetails = Object.entries(data[key]).map(([subKey, subValue]) => ` 
+                        <p><strong>${subKey.charAt(0).toUpperCase() + subKey.slice(1)}:</strong> ${JSON.stringify(subValue)}</p> 
+                    `).join(""); 
+                    serverDetailsElement.innerHTML += ` 
+                        <div class="sub-details"> 
+                            <h2>${key.charAt(0).toUpperCase() + key.slice(1)}</h2> 
+                            ${subDetails} 
+                        </div> 
+                    `; 
+                } else { 
+                    serverDetailsElement.innerHTML += ` 
+                        <p><strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${JSON.stringify(data[key])}</p> 
+                    `; 
+                } 
+            } 
+        }) 
+        .catch(error => { 
+            loadingIcon.style.display = "none"; 
+            serverDetailsElement.innerHTML = `<p>An error occurred while fetching server details: ${error}</p>`; 
+        }); 
+});
+
     </script>
     <footer>
         <p>&copy; lnwAitJi. All rights reserved.</p>
