@@ -122,28 +122,29 @@
     </style>
     <script>
         function fetchPlayerCount() {
-            var playerCountElement = document.getElementById('playerCount');
-            var apiUrl = "https://api.mcsrvstat.us/bedrock/3/cmgmmo.mc.in.th:21356";
+            setTimeout(() => {
+                var playerCountElement = document.getElementById('playerCount');
+                var apiUrl = "https://api.mcsrvstat.us/bedrock/3/cmgmmo.mc.in.th:21356";
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.players) {
-                        var onlinePlayers = data.players.online;
-                        /**
-                         * Didn't Usage (max player)
-                         * var maxPlayers = data.players.max;
-                         * 
-                         * to display "onlinePlayers + '/' + maxPlayers"
-                        */
-                        playerCountElement.textContent = onlinePlayers;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching player count:', error);
-                });
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.players) {
+                            var onlinePlayers = data.players.online;
+                            /**
+                             * Didn't Usage (max player)
+                             * var maxPlayers = data.players.max;
+                             * 
+                             * to display "onlinePlayers + '/' + maxPlayers"
+                            */
+                            playerCountElement.textContent = onlinePlayers;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching player count:', error);
+                    });
+            }, 1000)
         }
-
         window.addEventListener('load', fetchPlayerCount);
 
         function openMinecraft() {
@@ -177,7 +178,7 @@
             <img src="./cmg.png" alt="Profile Picture" class="profile-pic">
             <h2>@CMGMMO!</h2>
             <p>This is a page to add the Minecraft Bedrock Server "CMGMMO".</p>
-            <p>Now Player(s) Online: <span id="playerCount">0</span>/30</p>
+            <p>Now Player(s) Online: <span id="playerCount">Loading...</span>/30</p>
             <br>
             <button id="connect-button" onclick="openMinecraft()">Add Server</button>
             <button id="cmgmmodis">Join Discord</button>
