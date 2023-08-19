@@ -33,6 +33,13 @@
         h2 {
             color: #e0dede;
             margin-top: 0;
+            transition: color, transform 0.1s ease;
+        }
+
+        h2:hover {
+            color: #fcffa0;
+            margin-top: 0;
+            transform: scale(1.05);
         }
 
         p {
@@ -42,6 +49,11 @@
 
         #playerCount {
             color: #189618;
+            font-weight: bold;
+        }
+
+        #yellow {
+            color: #ffee6f;
             font-weight: bold;
         }
 
@@ -65,6 +77,12 @@
 
         .server-details h3 {
             color: #f5f2f2;
+            margin-top: 0;
+            transition: color 0.15s ease;
+        }
+
+        .server-details h3:hover {
+            color: #ffff44;
             margin-top: 0;
         }
 
@@ -122,8 +140,17 @@
     </style>
     <script>
         function fetchPlayerCount() {
+            var playerCountElement = document.getElementById('playerCount');
             setTimeout(() => {
-                var playerCountElement = document.getElementById('playerCount');
+                playerCountElement.textContent = "Loading.";
+            }, 333)
+            setTimeout(() => {
+                playerCountElement.textContent = "Loading..";
+            }, 666)
+            setTimeout(() => {
+                playerCountElement.textContent = "Loading...";
+            }, 999)
+            setTimeout(() => {
                 var apiUrl = "https://api.mcsrvstat.us/bedrock/3/cmgmmo.mc.in.th:21356";
 
                 fetch(apiUrl)
@@ -143,7 +170,7 @@
                     .catch(error => {
                         console.error('Error fetching player count:', error);
                     });
-            }, 1000)
+            }, 1332)
         }
         window.addEventListener('load', fetchPlayerCount);
 
@@ -177,8 +204,8 @@
         <div class="container">
             <img src="./cmg.png" alt="Profile Picture" class="profile-pic">
             <h2>@CMGMMO!</h2>
-            <p>This is a page to add the Minecraft Bedrock Server "CMGMMO".</p>
-            <p>Now Player(s) Online: <span id="playerCount">Loading...</span>/30</p>
+            <p>This is a page to add the Minecraft Bedrock Server <span id="yellow">CMGMMO</span></p>
+            <p>Now Player(s) Online: <span id="playerCount">Loading</span>/30</p>
             <br>
             <button id="connect-button" onclick="openMinecraft()">Add Server</button>
             <button id="cmgmmodis">Join Discord</button>
