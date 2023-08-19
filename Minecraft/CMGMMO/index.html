@@ -171,15 +171,14 @@
                     if (data.players) {
                         const onlinePlayers = data.players.online;
 
-                        displayPlayerCountWithDelay("L0ADIN", 100);
-                        displayPlayerCountWithDelay("L0ADI", 256);
-                        displayPlayerCountWithDelay("L0AD", 425);
-                        displayPlayerCountWithDelay("L0A", 674);
-                        displayPlayerCountWithDelay("L0", 850);
-                        displayPlayerCountWithDelay("0", 1000);
+                        displayPlayerCountWithDelay("Loading", 100);
+                        displayPlayerCountWithDelay("Loading.", 256);
+                        displayPlayerCountWithDelay("Loading..", 425);
+                        displayPlayerCountWithDelay("Loading...", 674);
                         for (let i = 0; i < onlinePlayers + 1; i++) {
-                            displayPlayerCountWithDelay(i, 1235 + i * 200);
+                            displayPlayerCountWithDelay(`${i} (${onlinePlayers})`, 1235 + i * 500);
                         }
+                        displayPlayerCountWithDelay(`${i}`, 0);
                     }
                 })
                 .catch(error => {
