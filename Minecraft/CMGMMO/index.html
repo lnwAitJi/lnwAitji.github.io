@@ -144,13 +144,13 @@
             var playerCountElement = document.getElementById('playerCount');
             setTimeout(() => {
                 playerCountElement.textContent = "Loading.";
-            }, 100)
-            setTimeout(() => {
-                playerCountElement.textContent = "Loading..";
             }, 200)
             setTimeout(() => {
+                playerCountElement.textContent = "Loading..";
+            }, 478)
+            setTimeout(() => {
                 playerCountElement.textContent = "Loading...";
-            }, 300)
+            }, 800)
             setTimeout(() => {
                 var apiUrl = "https://api.mcsrvstat.us/bedrock/3/cmgmmo.mc.in.th:21356";
 
@@ -171,7 +171,7 @@
                     .catch(error => {
                         console.error('Error fetching player count:', error);
                     });
-            }, 444)
+            }, 1000)
         }
         window.addEventListener('load', fetchPlayerCount);
 
