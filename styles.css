@@ -93,3 +93,18 @@ button {
 button:hover {
     background-color: #389738;
 }
+
+#back {
+    background-color: #585858;
+    color: #ededed;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    margin-top: 10px;
+}
+
+#back:hover {
+    background-color: #f51616;
+}
