@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connection CMGMMO</title>
     <link rel="stylesheet" href="../../styles.css">
     <link rel="icon" href="./cmg.png">
-    <script src="script.js"></script>
     <style>
         body {
             background-color: #333232;
@@ -95,6 +95,7 @@
             bottom: 0;
             width: 100%;
         }
+
         .fade-in {
             animation: fade-in 1s ease-in-out;
         }
@@ -104,6 +105,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -118,12 +120,38 @@
             0% {
                 transform: rotate(0);
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
     </style>
     <script>
+        function fetchPlayerCount() {
+            var playerCountElement = document.getElementById('playerCount');
+            var apiUrl = "https://api.mcsrvstat.us/bedrock/3/cmgmmo.mc.in.th:21356";
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.players) {
+                        var onlinePlayers = data.players.online;
+                        /**
+                         * Didn't Usage (max player)
+                         * var maxPlayers = data.players.max;
+                         * 
+                         * to display "onlinePlayers + '/' + maxPlayers"
+                        */
+                        playerCountElement.textContent = onlinePlayers;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching player count:', error);
+                });
+        }
+
+        window.addEventListener('load', fetchPlayerCount);
+
         function openMinecraft() {
             var userAgent = navigator.userAgent.toLowerCase();
             var isIOS = /iphone|ipad|ipod/.test(userAgent);
@@ -148,6 +176,7 @@
         }
     </script>
 </head>
+
 <body>
     <main>
         <div class="container">
@@ -173,4 +202,5 @@
         <p>&copy; CMGMMO. All rights reserved.</p>
     </footer>
 </body>
+
 </html>
