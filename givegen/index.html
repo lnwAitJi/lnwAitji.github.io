@@ -1,43 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Minecraft Bedrock Give Command Generator</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Bedrock Give Command Generator</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
-    <link rel="icon" href="./icon.png" type="./icon.png">
+    <link rel="icon" href="./icon.png" type="image/png">
 </head>
 <body>
-    <h1></h1>
+    <h1>Minecraft Bedrock Give Command Generator</h1>
     <form>
-        <label for="itemType">Item Type:</label>
-        <input type="text" id="itemType" placeholder="Item Type" value="minecraft:air">
-        <br>
-        <label for="count">Item Count:</label>
-        <input type="text" id="count" placeholder="Item Count" value="1">
-        <br>
-        <label for="id">Item Id:</label>
-        <input type="text" id="id" placeholder="Item Id" value="0">
-        <br>
-        <label for="playerName">Player Name:</label>
-        <input type="text" id="playerName" placeholder="Player Name" value="@s">
-        <br>
-        <label for="canPlace">Can Place On:</label>
-        <div id="canPlaceContainer">
-            <input type="text" id="canPlace" placeholder="Block Type">
-            <button type="button" onclick="addCanPlace()">+</button>
+        <div class="form-group">
+            <label for="itemType">Item Type:</label>
+            <input type="text" id="itemType" placeholder="Item Type" value="minecraft:air">
         </div>
-        <br>
-        <label for="canDestroy">Can Destroy:</label>
-        <div id="canDestroyContainer">
-            <input type="text" id="canDestroy" placeholder="Block Type">
-            <button type="button" onclick="addCanDestroy()">+</button>
+
+        <div class="form-group">
+            <label for="count">Item Count:</label>
+            <input type="number" id="count" placeholder="Item Count" value="1">
         </div>
-        <br>
-        <button type="button" onclick="generateCommand()">Generate Command</button>
-        <br>
+
+        <div class="form-group">
+            <label for="id">Item Id:</label>
+            <input type="text" id="id" placeholder="Item Id" value="0">
+        </div>
+
+        <div class="form-group">
+            <label for="playerName">Player Name:</label>
+            <input type="text" id="playerName" placeholder="Player Name" value="@s">
+        </div>
+
+        <div class="form-group">
+            <label for="canPlace">Can Place On:</label>
+            <div id="canPlaceContainer">
+                <input type="text" id="canPlace" placeholder="Block Type">
+                <button type="button" id="canPlaceAddButton">Add</button>
+            </div>
+            <div id="canPlaceList"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="canDestroy">Can Destroy:</label>
+            <div id="canDestroyContainer">
+                <input type="text" id="canDestroy" placeholder="Block Type">
+                <button type="button" id="canDestroyAddButton">Add</button>
+            </div>
+            <div id="canDestroyList"></div>
+        </div>
+
+        <button type="button" id="generateCommandButton">Generate Command</button>
+
         <textarea id="commandOutput" rows="5" cols="50" readonly></textarea>
-        <button type="button" onclick="copyCommandOutput()">Copy</button>
+
+        <button type="button" id="copyCommandButton">Copy</button>
     </form>
+
     <script src="./script.js"></script>
 </body>
 </html>
