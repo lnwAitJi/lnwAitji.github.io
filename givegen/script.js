@@ -67,15 +67,26 @@ function generateCommand() {
   let id = document.getElementById("id").value;
   let count = document.getElementById("count").value;
 
+  let jsonBlocks = {};
+
+  if (canPlaceOn.length > 0 || canDestroy.length > 0) {
+    if (canPlaceOn.length > 0) {
+      jsonBlocks["minecraft:can_place_on"] = { blocks: canPlaceOn };
+    }
+    if (canDestroy.length > 0) {
+      jsonBlocks["minecraft:can_destroy"] = { blocks: canDestroy };
+    }
+  }
+
   let command = `give ${playerName} ${itemType} ${count} ${id}`;
 
-  if (canPlaceOn.length > 0) {
-    command += ` {"minecraft:can_place_on":{"blocks":[${canPlaceOn.map(item => `"${item}"`).join(",")}]}}`;
+  if (Object.keys(jsonBlocks).length > 0) {
+    command += ` ${JSON.stringify(jsonBlocks)}`;
   }
 
-  if (canDestroy.length > 0) {
-    command += ` {"minecraft:can_destroy":{"blocks":[${canDestroy.map(item => `"${item}"`).join(",")}]}}`;
-  }
+  document.getElementById("commandOutput").value = command;
+}
+
 
   document.getElementById("commandOutput").value = command;
 }
