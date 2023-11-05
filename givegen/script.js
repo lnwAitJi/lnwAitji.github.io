@@ -1,22 +1,64 @@
 let canPlaceOn = [];
 let canDestroy = [];
 
+function updateCanPlaceList() {
+  let canPlaceList = document.getElementById("canPlaceList");
+  canPlaceList.innerHTML = "";
+  for (let i = 0; i < canPlaceOn.length; i++) {
+    let item = canPlaceOn[i];
+    let itemDiv = document.createElement("div");
+    itemDiv.textContent = item;
+    let removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", function () {
+      removeCanPlace(i);
+    });
+    itemDiv.appendChild(removeButton);
+    canPlaceList.appendChild(itemDiv);
+  }
+  generateCommand();
+}
+
+function updateCanDestroyList() {
+  let canDestroyList = document.getElementById("canDestroyList");
+  canDestroyList.innerHTML = "";
+  for (let i = 0; i < canDestroy.length; i++) {
+    let item = canDestroy[i];
+    let itemDiv = document.createElement("div");
+    itemDiv.textContent = item;
+    let removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", function () {
+      removeCanDestroy(i);
+    });
+    itemDiv.appendChild(removeButton);
+    canDestroyList.appendChild(itemDiv);
+  }
+  generateCommand();
+}
+
 function addCanPlace() {
   let canPlaceInput = document.getElementById("canPlace").value;
   canPlaceOn.push(canPlaceInput);
+  document.getElementById("canPlace").value = "";
+  updateCanPlaceList();
 }
 
 function addCanDestroy() {
   let canDestroyInput = document.getElementById("canDestroy").value;
   canDestroy.push(canDestroyInput);
+  document.getElementById("canDestroy").value = "";
+  updateCanDestroyList();
 }
 
 function removeCanPlace(index) {
   canPlaceOn.splice(index, 1);
+  updateCanPlaceList();
 }
 
 function removeCanDestroy(index) {
   canDestroy.splice(index, 1);
+  updateCanDestroyList();
 }
 
 function generateCommand() {
@@ -25,50 +67,15 @@ function generateCommand() {
   let id = document.getElementById("id").value;
   let count = document.getElementById("count").value;
 
-  let command = "give " + playerName + " " + itemType + " " + count + " " + id + " ";
-  let canPlace = false;
-  let canDes = false;
-  let canPlaceItem = "";
-  let canDesItem = "";
+  let command = `give ${playerName} ${itemType} ${count} ${id}`;
 
   if (canPlaceOn.length > 0) {
-    canPlace = true;
-    for (let i = 0; i < canPlaceOn.length; i++) {
-      canPlaceItem += `"${canPlaceOn[i]}",`;
-    }
-    canPlaceItem = canPlaceItem.substring(0, canPlaceItem.length - 1);
+    command += ` {"minecraft:can_place_on":{"blocks":[${canPlaceOn.map(item => `"${item}"`).join(",")}]}}`;
   }
 
   if (canDestroy.length > 0) {
-    canDes = true;
-    for (let i = 0; i < canDestroy.length; i++) {
-      canDesItem += `"${canDestroy[i]}",`;
-    }
-    canDesItem = canDesItem.substring(0, canDesItem.length - 1);
+    command += ` {"minecraft:can_destroy":{"blocks":[${canDestroy.map(item => `"${item}"`).join(",")}]}}`;
   }
-
-  let base = "";
-
-  if (canPlace === true && canDes === false) {
-    base = `{"minecraft:can_place_on":{"blocks":[${canPlaceItem}]}}`;
-  } else if (canPlace === false && canDes === true) {
-    base = `{"minecraft:can_destroy":{"blocks":[${canDesItem}]}}`;
-  } else if (canPlace === true && canDes === true) {
-    base = `{"minecraft:can_place_on":{"blocks":[${canPlaceItem}]},"minecraft:can_destroy":{"blocks":[${canDesItem}]}}`;
-  } else {
-    base = "";
-  }
-
-  command += base;
-
-  let deletedItems = canPlaceOn.concat(canDestroy);
-
-  for (let i = 0; i < deletedItems.length; i++) {
-    command = command.replace(`"${deletedItems[i]}",`, "");
-    command = command.replace(`"${deletedItems[i]}"`, "");
-  }
-  command = command.replace(/,}/g, "}");
-  command = command.replace(/,]/g, "]");
 
   document.getElementById("commandOutput").value = command;
 }
@@ -78,3 +85,11 @@ function copyCommandOutput() {
   commandOutput.select();
   document.execCommand("copy");
 }
+
+document.getElementById("itemType").addEventListener("input", generateCommand);
+document.getElementById("playerName").addEventListener("input", generateCommand);
+document.getElementById("id").addEventListener("input", generateCommand);
+document.getElementById("count").addEventListener("input", generateCommand);
+
+document.getElementById("canPlaceAddButton").addEventListener("click", addCanPlace);
+document.getElementById("canDestroyAddButton").addEventListener("click", addCanDestroy);
