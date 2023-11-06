@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Minecraft Bedrock Tellraw Generator</title>
+  <style>
+    body {
+      background-color: #2c3e50;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #2c3e50;
+    }
+
+    .dark-mode body {
+      background-color: #333;
+    }
+
+    .dark-mode .container {
+      background-color: #333;
+    }
+
+    .component {
+      border: 1px solid #3498db;
+      padding: 10px;
+      margin: 5px;
+      background-color: #2980b9;
+    }
+
+    .dark-mode .component {
+      background-color: #444;
+      border-color: #555;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+
+    .remove-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      float: right;
+    }
+
+    .remove-button:hover {
+      background-color: #c0392b;
+    }
+
+    .dark-mode .remove-button {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    .dark-mode .remove-button:hover {
+      background-color: #c0392b;
+    }
+
+    .popup {
+      display: none;
+      background-color: #34495e;
+      padding: 20px;
+      position: absolute;
+      z-index: 1;
+      max-width: 300px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .popup {
+      background-color: #555;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark-mode-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #2c3e50;
+      color: #fff;
+      padding: 5px 10px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: #fff;
+      color: #2c3e50;
+    }
+
+    .dark-mode .dark-mode-toggle {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .dark-mode .dark-mode-toggle:hover {
+      background-color: #fff;
+      color: #333;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+
+    /* Dark Mode styles */
+    .dark-mode body {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .dark-mode .container {
+      background-color: #333;
+    }
+
+    .dark-mode .component {
+      background-color: #444;
+      border-color: #555;
+    }
+
+    .dark-mode .remove-button {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    .dark-mode .remove-button:hover {
+      background-color: #c0392b;
+    }
+
+    .dark-mode .popup {
+      background-color: #555;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark-mode .dark-mode-toggle {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .dark-mode .dark-mode-toggle:hover {
+      background-color: #fff;
+      color: #333;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .component {
+        padding: 5px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h2>Minecraft Bedrock Tellraw Generator</h2>
+    <div id="components"></div>
+
+    <div id="popup" class="popup">
+      <h3>Add Component</h3>
+      <label>Type:</label>
+      <select id="componentType" onchange="toggleScoreFields()">
+        <option value="text">Text</option>
+        <option value="entity">Entity</option>
+        <option value="score">Score</option>
+      </select>
+      <br><br>
+      <label>Content:</label>
+      <input type="text" id="componentContent" placeholder="Enter Text/Entity/Objective">
+      <br><br>
+      <label id="scoreObjectiveLabel" style="display:none">Objective (for Score):</label>
+      <input type="text" id="scoreObjective" placeholder="Enter Objective (e.g., money)" style="display:none">
+      <br><br>
+      <label id="scoreEntityLabel" style="display:none">Entity (for Score):</label>
+      <input type="text" id="scoreEntity" placeholder="Enter Entity (e.g., @s)" style="display:none">
+      <br><br>
+      <button onclick="addPopupComponent()">Add Component</button>
+      <button onclick="closePopup()">Close</button>
+
+    </div>
+    <button onclick="openPopup()">Add Component</button>
+    <div id="command">
+      <h3>Tellraw Command:</h3>
+      <pre id="tellrawCommand"></pre>
+    </div>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</div>
+    <button id="copyButton" onclick="copyToClipboard()">Copy Command</button>
+  </div>
+
+  <script>
+    const components = [];
+    const componentPopup = document.getElementById('popup');
+    let darkMode = false;
+
+    function updateCommand() {
+      const tellrawComponents = components.map((component) => {
+        const { type, content } = component;
+        if (type === 'text') {
+          return `{"translate":"${content}"}`;
+        } else if (type === 'entity') {
+          return `{"selector":"${content}"}`;
+        } else if (type === 'score') {
+          const { objective, entity } = content;
+          return `{"score":{"objective":"${objective}","name":"${entity}"}}`;
+        }
+      });
+
+      const tellrawCommand = `tellraw @a {"rawtext":[${tellrawComponents}]}`;
+      document.getElementById('tellrawCommand').textContent = tellrawCommand;
+    }
+
+    function openPopup() {
+      componentPopup.style.display = 'block';
+    }
+
+    function closePopup() {
+      componentPopup.style.display = 'none';
+    }
+
+    function addPopupComponent() {
+      const componentType = document.getElementById('componentType').value;
+      const componentContent = document.getElementById('componentContent').value.trim();
+      if (componentContent) {
+        if (componentType === 'score') {
+          const objective = document.getElementById('scoreObjective').value.trim();
+          const entity = document.getElementById('scoreEntity').value.trim();
+          if (objective && entity) {
+            const newComponent = {
+              type: componentType,
+              content: {
+                objective: objective,
+                entity: entity
+              }
+            };
+            components.push(newComponent);
+            closePopup();
+            renderComponents();
+          } else {
+            alert('Please enter both Objective and Entity for Score component.');
+          }
+        } else {
+          const newComponent = {
+            type: componentType,
+            content: componentContent
+          };
+          components.push(newComponent);
+          closePopup();
+          renderComponents();
+        }
+      } else {
+        alert('Please enter content for the component.');
+      }
+    }
+
+    function removeComponent(index) {
+      components.splice(index, 1);
+      renderComponents();
+    }
+
+    function renderComponents() {
+      const componentsContainer = document.getElementById('components');
+      componentsContainer.innerHTML = '';
+
+      components.forEach((component, index) => {
+        const componentElement = document.createElement('div');
+        componentElement.classList.add('component');
+        componentElement.innerHTML = `${component.type === 'score'
+          ? `${component.content.objective} / ${component.content.entity}`
+          : component.content}
+          <button class="remove-button" onclick="removeComponent(${index})">Remove</button>`;
+
+        componentsContainer.appendChild(componentElement);
+      });
+
+      updateCommand();
+    }
+
+    function toggleDarkMode() {
+      darkMode = !darkMode;
+      const body = document.body;
+      const elements = document.querySelectorAll(
+        'body, .container, .component, .remove-button, .popup, .dark-mode-toggle, select, input[type="text"]'
+      );
+
+      elements.forEach(element => {
+        element.classList.toggle('dark-mode', darkMode);
+      });
+
+      const darkModeToggle = document.querySelector('.dark-mode-toggle');
+      darkModeToggle.classList.toggle('dark-mode-active', darkMode);
+    }
+    function copyToClipboard() {
+      const tellrawCommand = document.getElementById('tellrawCommand');
+      const commandText = tellrawCommand.textContent;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = commandText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      alert('Command copied to clipboard');
+    }
+
+
+    function toggleScoreFields() {
+      const componentType = document.getElementById('componentType').value;
+      const scoreObjectiveLabel = document.getElementById('scoreObjectiveLabel');
+      const scoreObjectiveInput = document.getElementById('scoreObjective');
+      const scoreEntityLabel = document.getElementById('scoreEntityLabel');
+      const scoreEntityInput = document.getElementById('scoreEntity');
+      if (componentType === 'score') {
+        scoreObjectiveLabel.style.display = 'block';
+        scoreObjectiveInput.style.display = 'block';
+        scoreEntityLabel.style.display = 'block';
+        scoreEntityInput.style.display = 'block';
+      } else {
+        scoreObjectiveLabel.style.display = 'none';
+        scoreObjectiveInput.style.display = 'none';
+        scoreEntityLabel.style.display = 'none';
+        scoreEntityInput.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+
+</html>
