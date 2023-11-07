@@ -13,49 +13,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=2">
-    <link rel="icon" href="https://media.discordapp.net/attachments/967680143617302548/1171447335411261551/AitJi.png?ex=655cb659&is=654a4159&hm=0f6c2a49fe96b15a4d9900c98bce6ace9a7d95340a49a33658257f2f7720a4b6&=&width=252&height=252" type="image/png">
+    <link rel="icon"
+        href="https://media.discordapp.net/attachments/967680143617302548/1171447335411261551/AitJi.png?ex=655cb659&is=654a4159&hm=0f6c2a49fe96b15a4d9900c98bce6ace9a7d95340a49a33658257f2f7720a4b6&=&width=252&height=252"
+        type="image/png">
     <title>InwAitJi • Minecraft Bedrock Tellraw Generator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;700;900&display=swap');
-        @media (max-width: 768px) {
-            img.w-48 {
-                max-width: 80%;
-                height: auto;
-            }
-        }
 
-        * {
+        body {
             text-align: center;
             font-size: 20px;
             font-family: 'IBM Plex Sans Thai', Arial, sans-serif;
-        }
-
-        h3 {
-            color: #000000;
-        }
-
-        h4 {
-            color: #FFFFFF;
-        }
-
-        label {
-            color: #000000;
-        }
-
-        body {
             background-color: #2c3e50;
             color: #fff;
             margin: 0;
             padding: 0;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #2c3e50;
         }
 
         .dark-mode body,
@@ -66,8 +38,19 @@
         .dark-mode .dark-mode-toggle,
         .dark-mode select,
         .dark-mode input[type="text"] {
-            background-color: #333;
+            background-color: #444;
             color: #fff;
+        }
+
+        h4 {
+            color: #FFFFFF;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         .component,
@@ -93,46 +76,20 @@
             cursor: pointer;
         }
 
-        .remove-button,
-        .remove-button {
-            background-color: #db5334;
-        }
-
-
         .remove-button:hover,
-        .remove-button:hover {
-            padding-left: 20;
+        .dark-mode .remove-button:hover {
+            padding-left: 20px;
             background-color: #9c3a24;
         }
 
         button:hover,
-        .dark-mode {
+        .dark-mode button:hover {
             background-color: #2980b9;
         }
 
         .dark-mode {
-            background-color: #e74c3c;
+            background-color: #444;
             color: #fff;
-        }
-
-        .dark-mode {
-            background-color: #c0392b;
-        }
-
-        .popup,
-        .dark-mode .popup {
-            display: none;
-            background-color: #34495e;
-            padding: 20px;
-            position: absolute;
-            z-index: 1;
-            max-width: 300px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .dark-mode .popup {
-            background-color: #555;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         .dark-mode-toggle,
@@ -170,14 +127,20 @@
             }
         }
 
+        #componentType {
+            background-color: rgb(6, 6, 6);
+            color: #555555;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
         #componentPopup {
             margin-top: 0px;
             margin-left: -200px;
             width: 100%;
             max-width: 400px;
-            background-color: #fff;
+            background-color: #161616;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #161616;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -194,16 +157,9 @@
             margin-left: 0px;
             width: 350px;
             height: 200px;
-            -moz-border-bottom-colors: none;
-            -moz-border-left-colors: none;
-            -moz-border-right-colors: none;
-            -moz-border-top-colors: none;
-            background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
-            border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
-            border-image: none;
-            border-radius: 6px 6px 6px 6px;
-            border-style: none solid solid none;
-            border-width: medium 1px 1px medium;
+            background: rgba(0, 0, 0, 0.07);
+            border: 1px solid #FFFFFF;
+            border-radius: 6px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
             color: #555555;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -213,13 +169,13 @@
             transition: background-color 0.2s ease 0s;
         }
 
-
         textarea:focus {
-            background: none repeat scroll 0 0 #FFFFFF;
+            background: #FFFFFF;
             outline-width: 0;
         }
 
         #componentContent {
+            background-color: #000000;
             max-width: 300px;
             margin-top: 0px;
             margin-left: 0px;
